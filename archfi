@@ -96,7 +96,7 @@ font="$DIALOG_RESULT"
 ############################
 #### Display drivers ####                                                 
 ############################
-boot_dialog --title "Display drivers" --menu "" 16 60 5 "1" "VIRTUALBOX" "2" "VMware" "3" "INTEL" "4" "ATI" "5" "AMD" "6" "NVIDIA"
+boot_dialog --title "Display drivers" --menu "" 16 60 6 "1" "VIRTUALBOX" "2" "VMware" "3" "INTEL" "4" "ATI" "5" "AMD" "6" "NVIDIA"
 dd="$DIALOG_RESULT"
 
 #############################
