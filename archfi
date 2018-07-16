@@ -150,7 +150,7 @@ timedatectl set-ntp true
 ##################
 #### Packages ####
 ##################     
-local core_packages=''
+    core_packages=''
     is_intel_cpu=$(lscpu | grep 'Intel' &> /dev/null && echo 'yes' || echo '')
     # Xserver
     core_packages+=' xorg-server xorg-apps xorg-xinit xorg-twm xterm'
@@ -169,7 +169,7 @@ if [[ "$dd" = "1" && "$os" = "1" ]]; then
     core_packages+=' virtualbox-guest-utils'
 fi
 if [[ "$dd" = "2" ]]; then    
-    # Intel
+    # Vmware
     core_packages+=' xf86-video-vmware xf86-input-vmmouse'
 fi
 if [[ "$dd" = "3" ]]; then    
@@ -217,8 +217,8 @@ fi
     # Audio
     core_packages+=' pulseaudio pulseaudio-alsa pavucontrol'
     # General utilities/libraries
-    core_packages+=' mesa lib32-mesa xf86-input-libinput xdg-user-dirs networkmanager network-manager-applet ppp iwd dialog wpa_supplicant'
-local packages=''
+    core_packages+=' mesa lib32-mesa xf86-input-libinput xdg-user-dirs networkmanager network-manager-applet ppp dialog wpa_supplicant'
+    packages=''
 if [[ "$os" = "1" ]]; then    
     # Browser
     packages+=' chromium'
