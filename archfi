@@ -263,7 +263,6 @@ cat << PACMAN > /etc/pacman.conf
 # /etc/pacman.conf
 #
 # See the pacman.conf(5) manpage for option and repository directives
-
 #
 # GENERAL OPTIONS
 #
@@ -282,14 +281,11 @@ HoldPkg     = pacman glibc
 #CleanMethod = KeepInstalled
 #UseDelta    = 0.7
 Architecture = auto
-
 #IgnorePkg   = 
 #IgnorePkg   =
 #IgnoreGroup =
-
 #NoUpgrade   =
 #NoExtract   =
-
 # Misc options
 #UseSyslog
 #Color
@@ -302,11 +298,9 @@ ILoveCandy
 SigLevel    = Required DatabaseOptional
 LocalFileSigLevel = Optional
 #RemoteFileSigLevel = Required
-
 # NOTE: You must run `pacman-key --init` before first using pacman; the local
 # keyring can then be populated with the keys of all official Arch Linux
 # packagers with `pacman-key --populate archlinux`.
-
 #
 # REPOSITORIES
 #   - can be defined here or included from another file
@@ -325,47 +319,33 @@ LocalFileSigLevel = Optional
 # The header [repo-name] is crucial - it must be present and
 # uncommented to enable the repo.
 #
-
 # The testing repositories are disabled by default. To enable, uncomment the
 # repo name header and Include lines. You can add preferred servers immediately
 # after the header, and they will be used before the default mirrors.
-
 #[testing]
 #Include = /etc/pacman.d/mirrorlist
-
 [pcr]
 Include = /etc/pacman.d/mirrorlist
-
 [kernels]
 Include = /etc/pacman.d/mirrorlist
-
 [nonprism]
 Include = /etc/pacman.d/mirrorlist
-
 [libre]
 Include = /etc/pacman.d/mirrorlist
-
 [core]
 Include = /etc/pacman.d/mirrorlist
-
 [extra]
 Include = /etc/pacman.d/mirrorlist
-
 #[community-testing]
 #Include = /etc/pacman.d/mirrorlist
-
 [community]
 Include = /etc/pacman.d/mirrorlist
-
 # If you want to run 32 bit applications on your x86_64 system,
 # enable the multilib repositories as required here.
-
 #[multilib-testing]
 #Include = /etc/pacman.d/mirrorlist
-
 #[multilib]
 #Include = /etc/pacman.d/mirrorlist
-
 # An example of a custom package repository.  See the pacman manpage for
 # tips on creating your own repositories.
 #[custom]
@@ -381,15 +361,14 @@ pacman-key --populate archlinux parabola
 #pacman-key --refresh-keys
 } 
 
-################################
-#### Set up disk partitions ####
-################################
-
+############################################
+#### Set up disk partitions and install ####
+############################################
+      swapsize=$(cat /proc/meminfo | grep MemTotal | awk '{ print $2 }')
+      swapsize=$(($swapsize/1000))"M"
 if [[ $GPT -eq 1 ]]; then
       parted /dev/sda mklabel gpt
       sgdisk /dev/sda -n=1:0:+1024M -t=1:ef00
-      swapsize=$(cat /proc/meminfo | grep MemTotal | awk '{ print $2 }')
-      swapsize=$(($swapsize/1000))"M"
       sgdisk /dev/sda -n=2:0:+$swapsize -t=2:8200
       sgdisk /dev/sda -n=3:0:0
       efi_bootmgr=" efibootmgr"
@@ -398,30 +377,30 @@ else
       sleep 1
       echo -e "n\np\n\n\n+512M\na\nw" | fdisk /dev/sda
       sleep 1
-      swapsize=$(cat /proc/meminfo | grep MemTotal | awk '{ print $2 }')
-      swapsize=$(($swapsize/1000))"M"
       echo -e "n\np\n\n\n+$swapsize\nt\n\n82\nw" | fdisk /dev/sda
       sleep 1
       echo -e "n\np\n\n\n\nw" | fdisk /dev/sda
       sleep 1
 fi
+      mkswap -L swap /dev/sda2
+      swapon /dev/sda2
 if [[ ! -z $encryption_passphrase ]]; then
       echo "Setting up encryption"
       printf "%s" "$encryption_passphrase" | cryptsetup luksFormat /dev/sda3
       printf "%s" "$encryption_passphrase" | cryptsetup open /dev/sda3 cryptroot
       physical_volume="/dev/mapper/cryptroot"
-      encrypt_mkinitcpio_hook="encrypt "
+      encrypt_mkinitcpio_hook=" encrypt"
       cryptdevice_grub="cryptdevice=UUID=$(blkid -s UUID -o value /dev/sda3):cryptroot"
 else
       physical_volume="/dev/sda3"
+      resume_mkinitcpio_hook=" resume"
+      resume_grub=" resume=UUID=$(blkid -s UUID -o value /dev/sda2)"
 fi
 if [[ $GPT -eq 1 ]]; then      
       mkfs.vfat -F32 /dev/sda1 
 else      
       mkfs.ext2 -L boot /dev/sda1
 fi
-      mkswap -L swap /dev/sda2
-      swapon /dev/sda2
 if [[ "$fs" = "1" ]]; then      
       mkfs.ext4 -L root $physical_volume
       mount $physical_volume /mnt
@@ -465,7 +444,7 @@ echo "root:$root_password" | chpasswd
 useradd -m -g users -G wheel -s /bin/bash $username
 echo "$username:$user_password" | chpasswd
 sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
-sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect keyboard keymap consolefont modconf block ${encrypt_mkinitcpio_hook}filesystems${fsck_mkinitcpio_hook})/g' /etc/mkinitcpio.conf
+sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect keyboard keymap consolefont modconf block${encrypt_mkinitcpio_hook}${resume_mkinitcpio_hook} filesystems${fsck_mkinitcpio_hook})/g' /etc/mkinitcpio.conf
 EOF
 if [[ "$fs" = "2" ]]; then
 arch-chroot /mnt /bin/bash <<EOF 
@@ -482,6 +461,7 @@ mkinitcpio -p linux-libre
 EOF
 fi
 arch-chroot /mnt /bin/bash <<EOF
+sed -i "s/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash${resume_grub}\"/g" /etc/default/grub
 sed -i "s/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=\"${cryptdevice_grub}\"/g" /etc/default/grub
 EOF
 if [[ $GPT -eq 0 ]]; then
