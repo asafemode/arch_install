@@ -162,6 +162,7 @@ else
     core_packages+=' linux-libre-headers linux-libre-lts linux-libre-lts-headers'    
 fi
 if [[ "$os" = "1" && -n "$is_intel_cpu" ]]; then
+   # https://wiki.archlinux.org/index.php/microcode
    core_packages+=' intel-ucode' 
 fi
 if [[ "$dd" = "1" && "$os" = "1" ]]; then    
@@ -253,8 +254,9 @@ fi
 #############################################################################################################################################
 migration_to_parabola(){
 sed -i 's/^#RemoteFileSigLevel = Required/RemoteFileSigLevel = Never/' /etc/pacman.conf
-pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/parabola-keyring/download
+#pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/parabola-keyring/download
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download
+pacman -U --noconfirm --force https://repo.parabola.nu/pool/parabola/parabola-keyring-20180126-1-any.pkg.tar.xz
 pacman -U --noconfirm --force https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20180712-1.parabola1-any.pkg.tar.xz
 sed -i 's/^RemoteFileSigLevel = Never/#RemoteFileSigLevel = Required/' /etc/pacman.conf
 cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
@@ -324,8 +326,8 @@ LocalFileSigLevel = Optional
 # after the header, and they will be used before the default mirrors.
 #[testing]
 #Include = /etc/pacman.d/mirrorlist
-[pcr]
-Include = /etc/pacman.d/mirrorlist
+#[pcr]
+#Include = /etc/pacman.d/mirrorlist
 [kernels]
 Include = /etc/pacman.d/mirrorlist
 [nonprism]
