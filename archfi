@@ -257,12 +257,12 @@ fi
 #### Install the keyring and mirror list for free repositories.If this doesn't work,see you https://wiki.parabola.nu/Migration_from_Arch ####
 #############################################################################################################################################
 migration_to_parabola(){
-sed -i 's/^#RemotUEFIleSigLevel = Required/RemotUEFIleSigLevel = Never/' /etc/pacman.conf
+sed -i 's/^#RemoteFileSigLevel = Required/RemoteFileSigLevel = Never/' /etc/pacman.conf
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/parabola-keyring/download
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download
 pacman -U --noconfirm --force https://repo.parabola.nu/pool/parabola/parabola-keyring-20180126-1-any.pkg.tar.xz
 pacman -U --noconfirm --force https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20180712-1.parabola1-any.pkg.tar.xz
-sed -i 's/^RemotUEFIleSigLevel = Never/#RemotUEFIleSigLevel = Required/' /etc/pacman.conf
+sed -i 's/^RemoteFileSigLevel = Never/#RemoteFileSigLevel = Required/' /etc/pacman.conf
 cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 cat << PACMAN > /etc/pacman.conf
 #
@@ -303,14 +303,14 @@ CheckSpace
 # trusts (see pacman-key and its man page), as well as unsigned packages.
 SigLevel    = Required DatabaseOptional
 LocalFileSigLevel = Optional
-#RemotUEFIleSigLevel = Required
+#RemoteFileSigLevel = Required
 # NOTE: You must run `pacman-key --init` before first using pacman; the local
 # keyring can then be populated with the keys of all official Arch Linux
 # packagers with `pacman-key --populate archlinux`.
 #
 # REPOSITORIES
-#   - can be dUEFIned here or included from another file
-#   - pacman will search repositories in the order dUEFIned here
+#   - can be defined here or included from another file
+#   - pacman will search repositories in the order defined here
 #   - local/custom mirrors can be added here or in separate files
 #   - repositories listed first will take precedence when packages
 #     have identical names, regardless of version number
@@ -365,7 +365,7 @@ pacman -Suu pacman --noconfirm
 pacman -Sy archlinux-keyring parabola-keyring --noconfirm
 pacman-key --populate archlinux parabola
 #pacman-key --refresh-keys
-} 
+}  
 
 ############################################
 #### Set up disk partitions and install ####
