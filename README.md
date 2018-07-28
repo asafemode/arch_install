@@ -23,13 +23,13 @@ Main Page https://wiki.parabola.nu/Main_Page
 
 Migration from Arch https://wiki.parabola.nu/Migration_from_Arch
 
-P.S. Fri Jul 13 2018 - doesn't work this link https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download<br/>
-then I changed the old mirrorlist date<br/> 
-`https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20171221-1.parabola1-any.pkg.tar.xz`<br /> 
-to the new<br /> 
-`/pacman-mirrorlist-20180712-1.parabola1-any.pkg.tar.xz`<br />
-I have learned date from there https://repo.parabola.nu/mirrorlist.txt <br /> 
-`(Parabola GNU/Linux-libre - Last Updated: Thu Jul 12 01:56:08 GMT 2018)`
+Parabola pacman-mirrorlist and parabola-keyring source<br/>
+`https://repo.parabola.nu/pool/parabola/`<br /> 
+latest version<br /> 
+pacman-mirrorlist <br/> 
+`https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20180712-1.parabola1-any.pkg.tar.xz`<br />
+parabola-keyring <br /> 
+`https://repo.parabola.nu/pool/parabola/parabola-keyring-20180722-1-any.pkg.tar.xz`
     
 
 -------------------------------------------------
