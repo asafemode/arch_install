@@ -516,7 +516,7 @@ sed -i "s/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet spla
 sed -i "s/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=\"${cryptdevice_grub}\"/g" /etc/default/grub
 EOF
 fi
-if [[ "$bl" = "2" && -n "$is_intel_cpu" ]]; then
+if [[ "$os" = "1" &&"$bl" = "2" && -n "$is_intel_cpu" ]]; then
 arch-chroot /mnt /bin/bash <<EOF
 sed -i "s/^initrd.*/initrd \/intel-ucode.img\\ninitrd \/initramfs-linux.img/g" /boot/loader/entries/arch.conf
 sed -i "s/^initrd.*/initrd \/intel-ucode.img\\ninitrd \/initrd \/initramfs-linux-fallback.img/g" /boot/loader/entries/arch-fallback.conf
@@ -524,8 +524,10 @@ EOF
 fi
 if [[ "$bl" = "2" && "$os" = "2" ]]; then
 arch-chroot /mnt /bin/bash <<EOF
+sed -i 's/Arch Linux/Parabola/g' /boot/loader/entries/arch.conf
 sed -i 's/vmlinuz-linux/vmlinuz-linux-libre/g' /boot/loader/entries/arch.conf
-sed -i 's/initramfs-linux.img/initramfs-linux-libre.imge/g' /boot/loader/entries/arch.conf
+sed -i 's/initramfs-linux.img/initramfs-linux-libre.img/g' /boot/loader/entries/arch.conf
+sed -i 's/Arch Linux/Parabola/g' /boot/loader/entries/arch-fallback.conf
 sed -i 's/vmlinuz-linux/vmlinuz-linux-libre/g' /boot/loader/entries/arch-fallback.conf
 sed -i 's/initramfs-linux-fallback.img/initramfs-linux-libre-fallback.img/g' /boot/loader/entries/arch-fallback.conf
 EOF
