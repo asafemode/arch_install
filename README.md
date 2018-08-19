@@ -31,7 +31,6 @@ pacman-mirrorlist <br/>
 parabola-keyring <br /> 
 `https://repo.parabola.nu/pool/parabola/parabola-keyring-20180802-1-any.pkg.tar.xz`
     
-
 -------------------------------------------------
 
 # Inspired by 
