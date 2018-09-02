@@ -2,7 +2,7 @@
 
 With this script, you can fast install Arch Linux or Parabola
 
-You can watch my videos to see how to use it [here](https://www.youtube.com/watch?v=5QV8zoRu7ig) and [here](https://www.youtube.com/watch?v=AQ7CUJ8bFio).
+You can watch my videos to see how to use it [here](https://www.youtube.com/watch?v=5QV8zoRu7ig) , [here](https://www.youtube.com/watch?v=v-f2F57iX74) and [here](https://www.youtube.com/watch?v=AQ7CUJ8bFio).
  
 # Sources
 
