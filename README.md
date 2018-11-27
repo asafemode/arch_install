@@ -29,7 +29,7 @@ latest version<br />
 pacman-mirrorlist <br/> 
 `https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20180712-1.parabola1-any.pkg.tar.xz`<br />
 parabola-keyring <br /> 
-`https://repo.parabola.nu/pool/parabola/parabola-keyring-20181031-1-any.pkg.tar.xz`
+`https://repo.parabola.nu/pool/parabola/parabola-keyring-20181126-1-any.pkg.tar.xz`
     
 -------------------------------------------------
 
