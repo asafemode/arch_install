@@ -27,7 +27,7 @@ Parabola pacman-mirrorlist and parabola-keyring source<br/>
 `https://repo.parabola.nu/pool/parabola/`<br /> 
 latest version<br /> 
 pacman-mirrorlist <br/> 
-`https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20190408-1.par1-any.pkg.tar.xz`<br />
+`https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20190531-1.par1-any.pkg.tar.xz`<br />
 parabola-keyring <br /> 
 `https://repo.parabola.nu/pool/parabola/parabola-keyring-20190517-1-any.pkg.tar.xz`
     
