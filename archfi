@@ -449,7 +449,11 @@ if [[ "$os" = "2" ]]; then
       migration_to_parabola
 fi
       echo "pacstrap /mnt base base-devel bash-completion${btrfs_progs}${efi_bootmgr}${mbr_grub}"
-      pacstrap /mnt base base-devel bash-completion$btrfs_progs$efi_bootmgr$mbr_grub  
+if [[ "$os" = "1" ]]; then      
+      pacstrap /mnt base base-devel linux bash-completion$btrfs_progs$efi_bootmgr$mbr_grub  
+else      
+      pacstrap /mnt base base-devel bash-completion$btrfs_progs$efi_bootmgr$mbr_grub
+fi     
       genfstab -U -p /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash <<EOF  
 echo $hostname > /etc/hostname
