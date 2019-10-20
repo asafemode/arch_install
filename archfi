@@ -450,7 +450,7 @@ if [[ "$os" = "2" ]]; then
 fi
       echo "pacstrap /mnt base base-devel bash-completion${btrfs_progs}${efi_bootmgr}${mbr_grub}"
 if [[ "$os" = "1" ]]; then      
-      pacstrap /mnt base base-devel linux linux-firmware bash-completion$btrfs_progs$efi_bootmgr$mbr_grub  
+      pacstrap /mnt base base-devel linux linux-firmware nano bash-completion$btrfs_progs$efi_bootmgr$mbr_grub  
 else      
       pacstrap /mnt base base-devel bash-completion$btrfs_progs$efi_bootmgr$mbr_grub
 fi     
