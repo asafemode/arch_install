@@ -2,11 +2,12 @@
 
 With this script, you can fast install Arch Linux or Parabola .
 
-Step 1 (download .iso file and writte to a USB stick) : https://www.archlinux.org/download/ 
-
-Step 2 (update and install wget) : pacman -Sy wget
-
-Step 3 (download and run archfi) : wget https://git.io/archfi001.sh && sh archfi001.sh
+Step 1 : Download .iso file and writte to a USB stick<br/> 
+`https://www.archlinux.org/download/`<br/> 
+Step 2 : Update and install wget<br/> 
+`pacman -Sy wget`<br/>
+Step 3 : Download and run archfi<br/> 
+`wget https://git.io/archfi001.sh && sh archfi001.sh`
 
 You can watch my videos to see how to use it [here](https://www.youtube.com/watch?v=5QV8zoRu7ig) , [here](https://www.youtube.com/watch?v=v-f2F57iX74) and [here](https://www.youtube.com/watch?v=AQ7CUJ8bFio).
  
@@ -30,11 +31,11 @@ Main Page https://wiki.parabola.nu/Main_Page
 Migration from Arch https://wiki.parabola.nu/Migration_from_Arch
 
 Parabola pacman-mirrorlist and parabola-keyring source<br/>
-`https://repo.parabola.nu/pool/parabola/`<br /> 
-latest version<br /> 
+`https://repo.parabola.nu/pool/parabola/`<br/> 
+latest version<br/> 
 pacman-mirrorlist <br/> 
-`https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20191124-1.par1-any.pkg.tar.xz`<br />
-parabola-keyring <br /> 
+`https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20191124-1.par1-any.pkg.tar.xz`<br/>
+parabola-keyring <br/> 
 `https://repo.parabola.nu/pool/parabola/parabola-keyring-20191127-1-any.pkg.tar.xz`
     
 -------------------------------------------------
