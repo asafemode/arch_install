@@ -1,7 +1,10 @@
 ﻿#!/bin/bash
 
 # project   : https://github.com/asafemode/arch_install
-# download  : wget https://raw.githubusercontent.com/asafemode/arch_install/master/archfi
+
+# step 1 (download .iso file) : https://www.archlinux.org/download/ 
+# step 2 (update and install wget) : pacman -Sy wget
+# step 3 (download and run archfi) : wget https://git.io/archfi001.sh && sh archfi001.sh
 
 #########################
 #### Dialog function ####                                                       
@@ -260,10 +263,10 @@ migration_to_parabola(){
 sed -i 's/^#RemoteFileSigLevel = Required/RemoteFileSigLevel = Never/' /etc/pacman.conf
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/parabola-keyring/download
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download
-pacman -U --noconfirm --force https://repo.parabola.nu/pool/parabola/parabola-keyring-20191127-1-any.pkg.tar.xz
-pacman -U --noconfirm --force https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20191124-1.par1-any.pkg.tar.xz
-sed -i 's/^RemoteFileSigLevel = Never/#RemoteFileSigLevel = Required/' /etc/pacman.conf
-cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+pacman -U --noconfirm https://repo.parabola.nu/pool/parabola/parabola-keyring-20191127-1-any.pkg.tar.xz
+pacman -U --noconfirm https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20191124-1.par1-any.pkg.tar.xz
+#sed -i 's/^RemoteFileSigLevel = Never/RemoteFileSigLevel = Required DatabaseOptional/' /etc/pacman.conf
+sleep 1
 cat << PACMAN > /etc/pacman.conf
 #
 # /etc/pacman.conf
@@ -303,7 +306,7 @@ CheckSpace
 # trusts (see pacman-key and its man page), as well as unsigned packages.
 SigLevel    = Required DatabaseOptional
 LocalFileSigLevel = Optional
-#RemoteFileSigLevel = Required
+RemoteFileSigLevel = Required DatabaseOptional
 # NOTE: You must run `pacman-key --init` before first using pacman; the local
 # keyring can then be populated with the keys of all official Arch Linux
 # packagers with `pacman-key --populate archlinux`.
@@ -358,12 +361,15 @@ Include = /etc/pacman.d/mirrorlist
 #SigLevel = Optional TrustAll
 #Server = file:///home/custompkgs
 PACMAN
+sleep 1
+cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+sleep 1
 pacman -Scc --noconfirm
 pacman -Syy --noconfirm
 pacman-key --refresh
 pacman -Suu pacman --noconfirm
-pacman -Sy archlinux-keyring parabola-keyring --noconfirm
-pacman-key --populate archlinux parabola
+#pacman -Sy archlinux-keyring parabola-keyring --noconfirm
+#pacman-key --populate archlinux parabola
 #pacman-key --refresh-keys
 }  
 
@@ -452,7 +458,7 @@ fi
 if [[ "$os" = "1" ]]; then      
       pacstrap /mnt base base-devel linux linux-firmware nano bash-completion$btrfs_progs$efi_bootmgr$mbr_grub  
 else      
-      pacstrap /mnt base base-devel bash-completion$btrfs_progs$efi_bootmgr$mbr_grub
+      pacstrap /mnt base base-devel linux-libre linux-libre-firmware nano bash-completion$btrfs_progs$efi_bootmgr$mbr_grub
 fi     
       genfstab -U -p /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash <<EOF  

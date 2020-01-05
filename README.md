@@ -1,6 +1,12 @@
 # Arch Linux / Parabola 
 
-With this script, you can fast install Arch Linux or Parabola
+With this script, you can fast install Arch Linux or Parabola .
+
+Step 1 (download .iso file and writte to a USB stick) : https://www.archlinux.org/download/ 
+
+Step 2 (update and install wget) : pacman -Sy wget
+
+Step 3 (download and run archfi) : wget https://git.io/archfi001.sh && sh archfi001.sh
 
 You can watch my videos to see how to use it [here](https://www.youtube.com/watch?v=5QV8zoRu7ig) , [here](https://www.youtube.com/watch?v=v-f2F57iX74) and [here](https://www.youtube.com/watch?v=AQ7CUJ8bFio).
  
