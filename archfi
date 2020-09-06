@@ -263,8 +263,8 @@ migration_to_parabola(){
 sed -i 's/^#RemoteFileSigLevel = Required/RemoteFileSigLevel = Never/' /etc/pacman.conf
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/parabola-keyring/download
 #pacman -U --noconfirm --force https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download
-pacman -U --noconfirm https://repo.parabola.nu/pool/parabola/parabola-keyring-20200323-1-any.pkg.tar.xz
-pacman -U --noconfirm https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20200202-1.parabola1-any.pkg.tar.xz
+pacman -U --noconfirm https://repo.parabola.nu/pool/parabola/parabola-keyring-20200809-1-any.pkg.tar.xz
+pacman -U --noconfirm https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20200627-1.parabola1-any.pkg.tar.xz
 #sed -i 's/^RemoteFileSigLevel = Never/RemoteFileSigLevel = Required DatabaseOptional/' /etc/pacman.conf
 sleep 1
 cat << PACMAN > /etc/pacman.conf
