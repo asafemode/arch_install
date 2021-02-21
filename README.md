@@ -36,7 +36,7 @@ latest version<br/>
 pacman-mirrorlist <br/> 
 `https://repo.parabola.nu/pool/parabola/pacman-mirrorlist-20201202-1.parabola2-any.pkg.tar.xz`<br/>
 parabola-keyring <br/> 
-`https://repo.parabola.nu/pool/parabola/parabola-keyring-20201125-1-any.pkg.tar.xz`
+`https://repo.parabola.nu/pool/parabola/parabola-keyring-20210110.1-1-any.pkg.tar.xz`
     
 -------------------------------------------------
 
